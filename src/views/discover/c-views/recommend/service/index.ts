@@ -28,3 +28,13 @@ export function getTopList(params) {
     params
   })
 }
+
+export function getArtist() {
+  return request({
+    url: '/artist/list',
+    method: 'get',
+    params: {
+      limit: 5
+    }
+  })
+}

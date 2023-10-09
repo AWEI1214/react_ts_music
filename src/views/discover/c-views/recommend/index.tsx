@@ -4,7 +4,8 @@ import {
   getBannersAction,
   getHotRecommendAction,
   getAlbuRecommendAction,
-  getrankingDataAction
+  getrankingDataAction,
+  getArtistListAction
 } from './store'
 import { useAppDispatch } from '@/store'
 import Banner from './c-cpns/banner'
@@ -12,6 +13,9 @@ import { RecommendWrapper } from './style'
 import Hot from './c-cpns/hot'
 import Album from './c-cpns/album'
 import TopRanking from './c-cpns/top-ranking'
+import UserLogin from './c-cpns/user-login'
+import SettleSinger from './c-cpns/settle-singer'
+import HotAnchor from './c-cpns/hot-anchor'
 
 interface IProps {
   children?: ReactNode
@@ -23,6 +27,7 @@ const Recommend: FC<IProps> = () => {
     dispatch(getHotRecommendAction())
     dispatch(getAlbuRecommendAction())
     dispatch(getrankingDataAction())
+    dispatch(getArtistListAction())
   }, [dispatch])
 
   return (
@@ -35,7 +40,11 @@ const Recommend: FC<IProps> = () => {
             <Album />
             <TopRanking />
           </div>
-          <div className="right">right</div>
+          <div className="right">
+            <UserLogin />
+            <SettleSinger />
+            <HotAnchor />
+          </div>
         </div>
       </RecommendWrapper>
     </div>

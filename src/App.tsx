@@ -4,6 +4,7 @@ import routes from './router'
 
 import AppHeader from '@/components/app-header'
 import AppFooter from './components/app-footer'
+import AppPlayerBar from './views/player/app-player-bar'
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
         <div>{useRoutes(routes)}</div>
       </Suspense>
       <AppFooter />
+      {/* 播放工具栏 */}
+      <AppPlayerBar />
     </div>
   )
 }

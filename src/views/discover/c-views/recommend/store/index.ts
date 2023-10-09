@@ -3,7 +3,8 @@ import {
   getBanners,
   getHotRecommend,
   getAlbumRecommend,
-  getTopList
+  getTopList,
+  getArtist
 } from '../service'
 
 const getBannersAction = createAsyncThunk('banners', async () => {
@@ -25,24 +26,6 @@ const rankingIds = [19723756, 3779629, 2884035]
 
 const getrankingDataAction = createAsyncThunk('ranking', async () => {
   let res: any = []
-  // rankingIds.forEach((item) => {
-  //   getTopList({ id: item }).then((result: any) => {
-  //     switch (result.playlist.id) {
-  //       case 19723756:
-  //         res.upRanking = result.playlist
-  //         break
-  //       case 3779629:
-  //         res.newRanking = result.playlist
-  //         break
-  //       case 2884035:
-  //         res.originRanking = result.playlist
-  //         break
-  //       default:
-  //         break
-  //     }
-  //     console.log('res', res)
-  //   })
-  // })
 
   const promises: Promise<any>[] = []
   for (const id of rankingIds) {
@@ -54,24 +37,25 @@ const getrankingDataAction = createAsyncThunk('ranking', async () => {
   return res
 })
 
+const getArtistListAction = createAsyncThunk('artist', async () => {
+  const res: any = await getArtist()
+  return res.artists
+})
+
 interface IBanners {
   banners: any[]
   hotRecommend: any[]
   albuRecommend: any[]
-  // upRanking: any
-  // newRanking: any
-  // originRanking: any
   rankings: any[]
+  settleSingers: any[]
 }
 
 const initialState: IBanners = {
   banners: [],
   hotRecommend: [],
   albuRecommend: [],
-  rankings: []
-  // upRanking: [],
-  // newRanking: [],
-  // originRanking: []
+  rankings: [],
+  settleSingers: []
 }
 
 const recommendSlice = createSlice({
@@ -90,8 +74,10 @@ const recommendSlice = createSlice({
         state.albuRecommend = action.payload
       })
       .addCase(getrankingDataAction.fulfilled, (state, action) => {
-        console.log('action.payload', action.payload)
         state.rankings = action.payload
+      })
+      .addCase(getArtistListAction.fulfilled, (state, action) => {
+        state.settleSingers = action.payload
       })
   }
 })
@@ -100,7 +86,8 @@ export {
   getBannersAction,
   getHotRecommendAction,
   getAlbuRecommendAction,
-  getrankingDataAction
+  getrankingDataAction,
+  getArtistListAction
 }
 
 export default recommendSlice.reducer

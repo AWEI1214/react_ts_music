@@ -26,3 +26,17 @@ export function formatImgUrl(
 ) {
   return url + `?param=${width}x${height}`
 }
+
+/**
+ * 将毫秒转化为分秒 mm:ss
+ * @param {number} time 传入的时间（毫秒）
+ * @returns
+ */
+export function formatTime(time: number) {
+  const timeSeconds = time / 1000
+  const minute = Math.floor(timeSeconds / 60)
+  const second = Math.floor(timeSeconds) % 60
+  const formatMinute = String(minute).padStart(2, '0')
+  const formatSecond = String(second).padStart(2, '0')
+  return `${formatMinute}:${formatSecond}`
+}

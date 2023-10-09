@@ -12,8 +12,9 @@ export const RecommendWrapper = styled.div`
     }
 
     > .right {
-      margin-left: 1px;
+      /* margin-left: 1px; */
       width: 250px;
+      transform: translateX(-10px);
     }
   }
 `
